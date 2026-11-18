@@ -2,7 +2,8 @@
 
 A simple music player, built to work like a real player: Now Playing is the
 home screen, and the library lives in a `music` folder — one folder per album.
-No accounts, no cloud, no subscriptions. It just plays your music.
+No accounts, no cloud, no subscriptions — and no internet connection needed.
+It just plays your music, completely offline.
 
 ## Running it
 
