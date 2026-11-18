@@ -3,6 +3,9 @@ name: Build Windows exe
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -27,3 +30,10 @@ jobs:
         with:
           name: BoomBox-Windows
           path: dist/BoomBox
+      - name: Publish the release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          Compress-Archive -Path dist/BoomBox/* -DestinationPath BoomBox-Windows.zip -Force
+          gh release create v3.6.0 --title "BoomBox 3.6.0" --notes "Windows build - no Python needed. Download BoomBox-Windows.zip, unzip it anywhere, and double-click BoomBox.exe. Put one folder per album in the music folder next to it." BoomBox-Windows.zip
