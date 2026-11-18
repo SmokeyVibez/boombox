@@ -1,0 +1,2 @@
+Put one folder per album in here, with the songs inside each
+album folder. A cover.jpg in an album folder becomes its artwork.
