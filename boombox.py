@@ -67,6 +67,8 @@ window = QMainWindow()
 window.setWindowTitle("BoomBox")
 window.resize(500, 530)
 folder = os.path.dirname(os.path.abspath(__file__))
+if getattr(sys, "frozen", False):
+    folder = os.path.dirname(sys.executable)
 library = os.path.join(folder, "music")
 home_art = QPixmap(os.path.join(folder, "boombox-icon.png")).scaled(360, 360, Qt.KeepAspectRatio, Qt.SmoothTransformation)
 window.setWindowIcon(QIcon(home_art))
