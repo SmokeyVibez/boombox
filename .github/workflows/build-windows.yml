@@ -1,0 +1,29 @@
+name: Build Windows exe
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install PySide6 pyinstaller
+      - name: Build the exe
+        run: pyinstaller --noconfirm --windowed --name BoomBox boombox.py
+      - name: Pack the app folder
+        shell: pwsh
+        run: |
+          Copy-Item boombox-icon.png dist/BoomBox/
+          Copy-Item no-artwork-textured.png dist/BoomBox/
+          New-Item -ItemType Directory -Force dist/BoomBox/music | Out-Null
+          Copy-Item "music/PUT MUSIC HERE.txt" dist/BoomBox/music/
+      - name: Upload the build
+        uses: actions/upload-artifact@v4
+        with:
+          name: BoomBox-Windows
+          path: dist/BoomBox
